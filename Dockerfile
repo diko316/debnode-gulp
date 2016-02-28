@@ -10,7 +10,7 @@ ADD ./tools $APP_TOOLS
 
 # install globals
 RUN mkdir -p /tmp
-ADD package.json /tmp
+ADD package.json /tmp/package.json
 WORKDIR /tmp
 
 RUN npm install -g -ddd gulp bower && \
