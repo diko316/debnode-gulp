@@ -2,6 +2,7 @@ FROM diko316/debnode:latest
 
 # change the path to /opt/app when using this image
 ENV GULP_SOURCE $PROJECT_ROOT
+ENV APP_PRERUNNER $APP_TOOLS/gulp/pre-start.sh
 ENV APP_RUNNER $APP_TOOLS/gulp/start.sh
 ENV APP_OBSERVE $PROJECT_ROOT/gulpfile.js
 

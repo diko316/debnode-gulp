@@ -21,16 +21,6 @@ if [ ! -r "${PACKAGE_FILE}" ] || [ ! -f "${PACKAGE_FILE}" ]; then
     exit 1
 fi
 
-##########################################
-# validate gulp file
-##########################################
-GULP_FILE=${GULP_SOURCE}/gulpfile.js
-if [ ! -r "${GULP_FILE}" ] || [ ! -f "${GULP_FILE}" ]; then
-    echo "${GULP_FILE} is not a file or not accessible" >&2
-    exit 1
-fi
-
-
 cd "${GULP_SOURCE}"
-npm run start
+npm run install
 cd "${CURRENT_CWD}"
