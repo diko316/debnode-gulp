@@ -5,9 +5,9 @@
   "main": "dist/npm/index.js",
   "scripts": {
     "install": "npm update",
-    "postinstall": "bower install --allow-root",
+    "postinstall": "bower update --allow-root",
     "prestart": "npm run install",
-    "start": "gulp run-server"
+    "start": "gulp run"
   },
   "repository": {
     "type": "git",
