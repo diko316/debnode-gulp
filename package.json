@@ -4,10 +4,9 @@
   "description": "Gulp sampler",
   "main": "dist/npm/index.js",
   "scripts": {
-    "install": "npm update",
-    "postinstall": "bower update --allow-root",
-    "prestart": "npm run install",
-    "start": "gulp run"
+    "prestart": "npm install",
+    "start": "bower update --allow-root",
+    "poststart": "gulp run"
   },
   "repository": {
     "type": "git",

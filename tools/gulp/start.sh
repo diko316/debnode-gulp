@@ -30,7 +30,9 @@ if [ ! -r "${GULP_FILE}" ] || [ ! -f "${GULP_FILE}" ]; then
     exit 1
 fi
 
-
+echo "running! gulp"
 cd "${GULP_SOURCE}"
 npm run start
 cd "${CURRENT_CWD}"
+
+echo "end! gulp"
