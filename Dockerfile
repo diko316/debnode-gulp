@@ -10,14 +10,25 @@ ENV APP_OBSERVE $PROJECT_ROOT/gulpfile.js
 ADD ./tools $APP_TOOLS
 
 # install globals
-RUN mkdir -p /tmp
 ADD package.json /tmp/package.json
 WORKDIR /tmp
 
-RUN npm install -g -ddd gulp bower && \
+RUN apt-get update && \
+    apt-get install -y build-essential && \
+    npm install -g -ddd gulp bower browser-sync && \
         npm install -ddd && \
-        cp -a /tmp/node_modules $PROJECT_ROOT
-        
+        cp -a /tmp/node_modules $PROJECT_ROOT && \
+    apt-get purge -y build-essential && \
+    apt-get autoremove -y && \
+    rm -rf /usr/include \
+        /usr/share/man \
+        /tmp/* \
+        /var/cache/apt/* \
+        /root/.npm \
+        /usr/lib/node_modules/npm/man \
+        /usr/lib/node_modules/npm/doc \
+        /usr/lib/node_modules/npm/html \
+        /var/lib/apt/lists/*
 
 # package install dev tools
 WORKDIR $GULP_SOURCE
