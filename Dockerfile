@@ -20,11 +20,13 @@ RUN apt-get update && \
         cp -a /tmp/node_modules $PROJECT_ROOT && \
     apt-get purge -y build-essential && \
     apt-get autoremove -y && \
+    dpkg --purge $(dpkg -l | grep "^rc" | tr -s ' ' | cut -d ' ' -f 2) && \
     rm -rf /usr/include \
         /usr/share/man \
         /tmp/* \
         /var/cache/apt/* \
         /root/.npm \
+        /root/.node-gyp \
         /usr/lib/node_modules/npm/man \
         /usr/lib/node_modules/npm/doc \
         /usr/lib/node_modules/npm/html \
