@@ -11,26 +11,17 @@ ADD ./tools $APP_TOOLS
 
 # install globals
 ADD package.json /tmp/package.json
-WORKDIR /tmp
 
-RUN apt-get update && \
-    apt-get install -y build-essential && \
+RUN "$APP_TOOLS/installer/install.sh" \
+        build-essential && \
+    cd "/tmp" && \
     npm install -g -ddd gulp bower browser-sync && \
         npm install -ddd && \
         cp -a /tmp/node_modules $PROJECT_ROOT && \
-    apt-get purge -y build-essential && \
-    apt-get autoremove -y && \
-    dpkg --purge $(dpkg -l | grep "^rc" | tr -s ' ' | cut -d ' ' -f 2) && \
-    rm -rf /usr/include \
-        /usr/share/man \
-        /tmp/* \
-        /var/cache/apt/* \
-        /root/.npm \
-        /root/.node-gyp \
-        /usr/lib/node_modules/npm/man \
-        /usr/lib/node_modules/npm/doc \
-        /usr/lib/node_modules/npm/html \
-        /var/lib/apt/lists/*
+    "$APP_TOOLS/installer/uninstall.sh" \
+        build-essential && \
+    rm -rf /root/.node-gyp && \
+    "$APP_TOOLS/installer/cleanup.sh"
 
 # package install dev tools
 WORKDIR $GULP_SOURCE
