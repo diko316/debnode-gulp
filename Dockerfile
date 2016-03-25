@@ -14,7 +14,6 @@ RUN "$APP_TOOLS/installer/npminstall.sh" \
             build-essential \
         --global \
             gulp \
-            bower \
             browser-sync
 
 # package install dev tools
