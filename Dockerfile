@@ -10,8 +10,6 @@ ADD ./tools $APP_TOOLS
 ADD package.json /tmp/package.json
 
 RUN "$APP_TOOLS/installer/npminstall.sh" \
-        --apt \
-            build-essential \
         --global \
             gulp \
             browser-sync
