@@ -1,10 +1,7 @@
 FROM diko316/debnode:latest
 
 # change the path to /opt/app when using this image
-ENV GULP_SOURCE $PROJECT_ROOT
-ENV APP_PRERUNNER $APP_TOOLS/gulp/pre-start.sh
-ENV APP_RUNNER $APP_TOOLS/gulp/start.sh
-ENV APP_OBSERVE $PROJECT_ROOT/gulpfile.js
+ENV GULP_SOURCE=$PROJECT_ROOT APP_PRERUNNER=$APP_TOOLS/gulp/pre-start.sh APP_RUNNER=$APP_TOOLS/gulp/start.sh APP_OBSERVE=$PROJECT_ROOT/gulpfile.js
 
 # add gulp tools
 ADD ./tools $APP_TOOLS
@@ -12,16 +9,13 @@ ADD ./tools $APP_TOOLS
 # install globals
 ADD package.json /tmp/package.json
 
-RUN "$APP_TOOLS/installer/install.sh" \
-        build-essential && \
-    cd "/tmp" && \
-    npm install -g -ddd gulp bower browser-sync && \
-        npm install -ddd && \
-        cp -a /tmp/node_modules $PROJECT_ROOT && \
-    "$APP_TOOLS/installer/uninstall.sh" \
-        build-essential && \
-    rm -rf /root/.node-gyp && \
-    "$APP_TOOLS/installer/cleanup.sh"
+RUN "$APP_TOOLS/installer/npminstall.sh" \
+        --apt \
+            build-essential \
+        --global \
+            gulp \
+            bower \
+            browser-sync
 
 # package install dev tools
 WORKDIR $GULP_SOURCE
