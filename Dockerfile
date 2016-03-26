@@ -6,16 +6,8 @@ ENV GULP_SOURCE=$PROJECT_ROOT APP_PRERUNNER=$APP_TOOLS/gulp/pre-start.sh APP_RUN
 # add gulp tools
 ADD ./tools $APP_TOOLS
 
-# install globals
-ADD package.json /tmp/package.json
-
-RUN "$APP_TOOLS/installer/npminstall.sh" \
-        --global \
-            gulp \
-            browser-sync
-
-# package install dev tools
-WORKDIR $GULP_SOURCE
+# autobuild gulp stack
+RUN "$APP_TOOLS/autobuild.sh" gulp
 
 # same as base image, just changed the APP_RUNNER
 CMD $APP_TOOLS/watcher/start.sh
